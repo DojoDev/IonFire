@@ -11,4 +11,8 @@ export class HomePage {
 
   }
 
+  taskOpen(){
+    this.navCtrl.push('TaskPage');
+  }
+
 }
