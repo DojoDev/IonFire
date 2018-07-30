@@ -9,6 +9,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { FIREBASECRED } from './firebase.credentials';
+import { TaskProvider } from '../providers/task/task';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FIREBASECRED } from './firebase.credentials';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    TaskProvider
   ]
 })
 export class AppModule {}

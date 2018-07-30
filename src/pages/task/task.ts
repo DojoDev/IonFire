@@ -1,7 +1,8 @@
-import { AngularFireDatabase} from 'angularfire2/database';
+import { Task } from './../../models/task.model';
+import { TaskProvider } from './../../providers/task/task';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { resolveDefinition } from '../../../node_modules/@angular/core/src/view/util';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 /**
  * Generated class for the TaskPage page.
@@ -16,49 +17,52 @@ import { resolveDefinition } from '../../../node_modules/@angular/core/src/view/
   templateUrl: 'task.html',
 })
 export class TaskPage {
-private PATH ='tasks/';
-  constructor(private db: AngularFireDatabase) {}
-  getAll(){
-    return this.db.list(this.PATH)
-    .snapshotChanges()
-    .map(changes =>{
-      return changes.map(t =>({
-        key: t.payload.key,...t.payload.val()
-      }));
-    })
-  }
+  headerTitle: string;
+  form: FormGroup;
+  task: any;
 
-  get(key: string){
-  return this.db.object(this.PATH+key)
-  .snapshotChanges()
-  .map(t =>{
-    return{ key: t.payload.key,...t.payload.val() };
-  })
-  }
-  save(task:any){
-    return new Promise((resolve, reject)=>{
-      if(task.key){
-        this.db.list(this.PATH)
-        .update(task.key,
-        {title: task.title, description: task.description})
-        .then(()=> resolve())
-        .catch((e)=> reject(e));
-      }else{
-        this.db.list(this.PATH)
-        .push({title: task.title, description: task.description
-        }).then(()=> resolve());
-      }
-    })
-  }
 
-  remove(key:string){
+  constructor(
+    public navParams: NavParams,
+    public navCtrl: NavController,
+    private formBuilder: FormBuilder,
+    private provider: TaskProvider,
+    private toast: ToastController) {
+    this.task = this.navParams.data.task || {};
+    this.setupPageTitle();
+    this.createForm();
 
   }
-  
-  
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskPage');
+    console.log('Task Page Working');
+  }
+
+  private setupPageTitle() {
+    this.headerTitle = this.navParams.data.task ? 'Alterando contato' : 'Nova Tarefa';
+  }
+
+  createForm() {
+    this.form = this.formBuilder.group({
+      key: [this.task.key],
+      title: [this.task.title, Validators.required],
+      description: [this.task.description, Validators.required]
+    });
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.provider.save(this.form.value)
+        .then(() => {
+          console.error('Pop Aqui');
+          this.toast.create({ message: 'Contato salvo com sucesso', duration: 3000 }).present();
+          this.navCtrl.pop();
+        })
+        .catch((e) => {
+          this.toast.create({ message: 'Erro ao registrar sua tarefa', duration: 3000 }).present();
+          console.error('Erro');
+          console.error(e);
+        });
+    }
   }
 
 }
