@@ -18,9 +18,7 @@ export class TaskProvider {
     return this.db.list(this.PATH)
       .snapshotChanges()
       .map(changes => {
-        return changes.map(t => ({
-          key: t.payload.key, ...t.payload.val()
-        }));
+        return changes.map(t => ({key: t.payload.key, ...t.payload.val() }));
       })
   }
 
@@ -28,7 +26,7 @@ export class TaskProvider {
     return this.db.object(this.PATH + key)
       .snapshotChanges()
       .map(t => {
-        return { key: t.payload.key, ...t.payload.val() };
+        return { key: t.key, ...t.payload.val() };
       })
   }
   save(task: any) {

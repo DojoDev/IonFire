@@ -5,8 +5,24 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
+  <ion-list>
+    <ion-item-sliding  *ngFor="let task of tasks | async">
+      <ion-item>
+        <h1>{{task.title}}</h1> 
+        <p>{{task.description}}</p>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="secondary" (click)="editTask(task)">
+          <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-button color="danger" (click)="removeTask(task.key)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
   <ion-fab bottom right>
     <button ion-fab color="primary" (click)="taskOpen()">
       <ion-icon name="add"></ion-icon>

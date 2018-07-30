@@ -1,4 +1,3 @@
-import { Task } from './../../models/task.model';
 import { TaskProvider } from './../../providers/task/task';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -28,6 +27,7 @@ export class TaskPage {
     private formBuilder: FormBuilder,
     private provider: TaskProvider,
     private toast: ToastController) {
+
     this.task = this.navParams.data.task || {};
     this.setupPageTitle();
     this.createForm();

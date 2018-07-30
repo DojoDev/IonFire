@@ -1,8 +1,7 @@
+import { Observable } from 'rxjs/Observable';
 import { TaskProvider } from './../../providers/task/task';
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
-import { Observable } from 'rxjs/Observable';
-
 
 @Component({
   selector: 'page-home',
@@ -10,11 +9,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class HomePage {
    tasks: Observable<any>;
-  constructor(public navCtrl: NavController, private provider: TaskProvider, private toast: ToastController) {
 
-  }
-  ionViewDidLoad() {
+  constructor(
+    public navCtrl: NavController, 
+    private provider: TaskProvider, 
+    private toast: ToastController) {
     this.tasks = this.provider.getAll();
+    console.log(this.tasks);
   }
 
   taskOpen(){
