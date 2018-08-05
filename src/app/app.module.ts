@@ -21,7 +21,6 @@ import { TaskProvider } from '../providers/task/task';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASECRED),
     AngularFireDatabaseModule
-
   ],
   bootstrap: [IonicApp],
   entryComponents: [

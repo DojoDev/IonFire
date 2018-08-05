@@ -1,14 +1,15 @@
-import { Observable } from 'rxjs/Observable';
-import { TaskProvider } from './../../providers/task/task';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs'; 
 import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
+import { TaskProvider } from '../../providers/task/task';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-   tasks: Observable<any>;
+ tasks: Observable<any[]>;
 
   constructor(
     public navCtrl: NavController, 
