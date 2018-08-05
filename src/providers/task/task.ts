@@ -18,19 +18,20 @@ export class TaskProvider {
 
   getAll() {
     return this.db.list(this.PATH)
-    .snapshotChanges()
+      .snapshotChanges()
     .pipe(map(changes => changes
       .map(c => ({ key: c.payload.key, ...c.payload.val() }))));
   }
 
 
-
-get(key: string) {
-  return this.db.object(this.PATH + key)
+  get(key: string) {
+    return this.db.list(this.PATH + key)
     .snapshotChanges()
     .pipe(map(changes => changes
       .map(c => ({ key: c.payload.key, ...c.payload.val() }))));
   }
+
+  
 save(task: any) {
   return new Promise((resolve, reject) => {
     if (task.key) {
