@@ -1,0 +1,34 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content>
+  <ion-list padding>
+
+    <ion-item>
+      <ion-label floating>E-mail</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Senha</ion-label>
+      <ion-input type="password" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button type="submit" color="secnodary" large full>Log in</button>
+    </ion-item>
+    <ion-item>
+      <a (click)="goSingup()">Create a New Account</a>
+    </ion-item>
+  
+  </ion-list>
+</ion-content>
