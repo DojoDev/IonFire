@@ -15,6 +15,8 @@ import { SinginPage } from '../pages/singin/singin';
 import { AuthService } from '../providers/auth/auth-service';
 import { SinupPage } from '../pages/sinup/sinup';
 
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -26,7 +28,7 @@ import { SinupPage } from '../pages/sinup/sinup';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASECRED),
-    AngularFireDatabaseModule,AngularFireAuthModule
+    AngularFireDatabaseModule,AngularFireAuthModule,NgxErrorsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -30,13 +30,10 @@ export class SinupPage {
 
        this.authService.createUser(this.user)
         .then(() => {
-          console.log("Cheguei aqui 0");
           var user = firebase.auth().currentUser;
           user.sendEmailVerification();
-          console.log("Cheguei aqui 1");
           toast.setMessage('Usuário criado com sucesso.');
           toast.present();
-          console.log("Cheguei aqui 3");
           this.navCtrl.setRoot(HomePage);
         })
         .catch((error: any) => {

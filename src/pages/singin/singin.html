@@ -11,24 +11,37 @@
   </ion-navbar>
 
 </ion-header>
-<ion-content>
-  <ion-list padding>
+<ion-content padding>
+  <form (ngSubmit)="login()" [formGroup]="loginForm">
+    <ion-list inset>
 
-    <ion-item>
-      <ion-label floating>E-mail</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Senha</ion-label>
-      <ion-input type="password" ></ion-input>
-    </ion-item>
-    <ion-item>
-      <button ion-button type="submit" color="secnodary" large full>Log in</button>
-    </ion-item>
-    <ion-item>
-      <a (click)="goSingup()">Create a New Account</a>
-    </ion-item>
-  
-  </ion-list>
+      <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
+        <ion-input type="text" placeholder="Email" name="name" formControlName="email"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="email" #emailErrors="ngxErrors">
+        <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">It should be a valid email</div>
+      </div>
+
+      <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
+        <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="password" #passwordErrors="ngxErrors">
+        <div [ngxError]="['minlength', 'required']" [when]="['touched']">It should be at least 6 characters</div>
+      </div>
+    </ion-list>
+
+    <div padding-horizontal>
+      <div class="form-error">{{loginError}}</div>
+      <button ion-button full type="submit" [disabled]="!loginForm.valid">Log in</button>
+    </div>
+    <ion-list>
+      <br>
+      <button ion-button icon-left block clear (click)="signup()"> SingUp?</button>
+      </ion-list>
+      <ion-list>
+        <button ion-button icon-left block clear (click)="forgotPassword()"> Forgot password?</button>
+      </ion-list>
+  </form>
 </ion-content>
